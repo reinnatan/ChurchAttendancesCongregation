@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+      <style>
+         span{
+            display: inline;
+         }
+         #btnrecon{
+            display: inline;
+         }
+         td {
+            text-align: center;
+            padding: 15px;
+         }
+      </style>
+      <script type = "text/javascript">
+         function connect(){
+            // Let us open a web socket
+            var ws = new WebSocket("ws://localhost:13254");
+
+            ws.onopen = function() {
+               // Web Socket is connected, send data using send()
+               //ws.send("Message to send");
+               //alert("Message is sent...");
+               var element = document.querySelector("#status");
+               element.style.color = 'green';
+               element.innerHTML = "Connect";
+
+               var elButton = document.querySelector("#btnrecon");
+               elButton.style.display='none';
+            };
+
+            ws.onmessage = function (evt) {
+               //var received_msg = evt.data;
+               //alert("Message is received..."+evt.data);
+               console.log(evt.data);
+               var user = JSON.parse(evt.data);
+               var canParse = false;
+               if(user.hasOwnProperty("group")){
+                  canParse = true;
+               }
+
+               if(canParse && user.group=="woman_member"){
+                  var element = document.querySelector("#member_wanita");
+                  var counter =parseInt(element.innerHTML) +1;
+                  element.innerHTML = counter+"";
+               }else if(canParse && user.group=="man_member"){
+                  var element = document.querySelector("#member_pria");
+                  var counter =parseInt(element.innerHTML) +1;
+                  element.innerHTML = counter+"";
+               }else if(canParse && user.group=="man_non_member"){
+                  var element = document.querySelector("#non_member_pria");
+                  var counter =parseInt(element.innerHTML) +1;
+                  element.innerHTML = counter+"";
+               }else if(canParse && user.group=="woman_non_member"){
+                  var element = document.querySelector("#non_member_wanita");
+                  var counter =parseInt(element.innerHTML) +1;
+                  element.innerHTML = counter+"";
+               }
+            };
+
+            ws.onclose = function() {
+               // websocket is closed.
+               //alert("Connection is closed...");
+               var element = document.querySelector("#status");
+               element.style.color = 'red';
+               element.innerHTML = "Disconnect";
+
+               var elButton = document.querySelector("#btnrecon");
+               elButton.style.display='inline';
+            };
+         }
+         connect();
+      </script>
+
+   </head>
+
+   <body>
+      <center>
+         <table border="1">
+            <caption>Church Attendance user<caption>
+            <thead>
+               <th>Member Wanita</th><th>Member Pria</th><th>Simpatisan Wanita</th><th>Simpatisan Pria</th>
+            </thead>
+            <tbody>
+               <tr><td><p id="member_wanita">0</p></td><td><p id="member_pria">0</p></td>
+               <td><p id="non_member_wanita">0</p></td><td><p id="non_member_pria">0</p></td></tr>
+            </tbody>
+            <tfoot></tfoot>
+         </table>
+         <p>Status &nbsp; <span id="status"></span>&nbsp;&nbsp;<input type="button" value="reconnect" onclick="connect()" id="btnrecon"/></p>
+      </center>
+   </body>
+</html>

@@ -1,3 +1,8 @@
+---
+runme:
+  id: 01HFBRXT4WXPNT9KMTKAVW6BBQ
+  version: v2.0
+---
 
 # ChurchAttendancesCongregation
 
@@ -6,7 +11,13 @@ Church Attendance Conregation System
 
 ```
 
-- techstacks
+- Tech Stacks
    - python3
    - tkinter
-   - websocket
+   - websocker
+   - Javascript
+
+```sh
+![demo apps](screenshoot/demo.gif)
+
+```

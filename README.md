@@ -12,7 +12,4 @@ Church Attendance Conregation System
    - websocker
    - Javascript
 
-```sh
-![demo apps](screenshoot/demo.gif)
-
-```
+![demoapps](screenshoot/demo.gif)

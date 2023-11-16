@@ -1,8 +1,3 @@
----
-runme:
-  id: 01HFBRXT4WXPNT9KMTKAVW6BBQ
-  version: v2.0
----
 
 # ChurchAttendancesCongregation
 
